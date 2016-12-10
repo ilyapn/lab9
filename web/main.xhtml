@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.cltcl">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <script type="text/javascript" src="resources/script.js"></script>
+       <body onload="updateImage()"></body> 
+    </h:head>
+
+    <body>
+
+        <header>
+            <p>Пначин Илья P3202 вариант 265</p>
+        </header>
+        <h:form id="myform" >
+
+            <div id="change">
+                <p:inputText value="#{user.xgr}"  style="display:none;" id="hiddenXval"  />
+                <p:inputText value="#{user.ygr}"  style="display:none;" id="hiddenYval" />
+                <table class="main" >
+                    <tr>
+                        <td > 
+                             R:<br/>
+                             <h:inputText id="input_r" value="#{user.textValueR}" >
+                                 
+                               
+                            </h:inputText>
+                            <br />
+                             Y:<br />
+                             <h:inputText id="inputY" value="#{user.textValueY}" >
+                                </h:inputText>
+
+                        </td>
+                        <td rowspan="3" >
+                            <p:commandButton update="myform:imageGraph" style="display:none;" id="updateGraph" />
+                            <div id="image">
+                                <p:graphicImage value="#{user.graph}" id="imageGraph" cache="false" onclick="updateImage();imageClickHandler(event); updateImage();">
+                                </p:graphicImage>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr><td >
+                            <p:commandButton action="#{user.updateTableGraph}" update="table" style="display:none;" id="hiddenSubmit" />
+                            X:<br/>
+                            <h:commandLink action="#{user.setValueX(-5.0)}" value="x=-5 "/><br/>
+                            <h:commandLink action="#{user.setValueX(-4.0)}" value="x=-4 "/><br/>
+                            <h:commandLink action="#{user.setValueX(-3.0)}" value="x=-3 "/><br/>
+                            <h:commandLink action="#{user.setValueX(-2.0)}" value="x=-2 "/><br/>
+                            <h:commandLink action="#{user.setValueX(-1.0)}" value="x=-1 "/><br/>
+                            <h:commandLink action="#{user.setValueX(0.0)}" value="x=0 "/><br/>
+                            <h:commandLink action="#{user.setValueX(1.0)}" value="x=1 "/><br/>
+                            <h:commandLink action="#{user.setValueX(2.0)}" value="x=2 "/><br/>
+                            <h:commandLink action="#{user.setValueX(3.0)}" value="x=3 "/><br/>
+                        </td></tr>
+                    
+                </table>
+
+            </div>
+
+            <p:splitButton value="добавить" action="#{user.updateTable}" update="table myform:imageGraph" onclick="updateImage()">
+                    <p:menuitem value="очистить" action="#{user.clearTable}" update="table myform:imageGraph" onclick="updateImage()" />
+                    <p:separator />
+                    <p:menuitem value="вернуться" outcome="firstPage" />
+                </p:splitButton>
+            
+
+            
+                <br/>
+                <p:dataTable   var="list" value="#{user.data}" id="table">
+                    <p:column headerText="X">
+                        <h:outputText value="#{list.valueX}" />
+                    </p:column>
+
+                    <p:column headerText="Y">
+                        <h:outputText value="#{list.valueY}" />
+                    </p:column>
+
+                    <p:column headerText="R">
+                        <h:outputText value="#{list.valueR}" />
+                    </p:column>
+
+                    <p:column headerText="Результат">
+                        <h:outputText value="#{list.result}" />
+                    </p:column>
+                </p:dataTable>
+                <br/>
+            
+        </h:form>
+
+    </body>
+</html>
